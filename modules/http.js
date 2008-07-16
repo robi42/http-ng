@@ -18,14 +18,14 @@ var client;
 
 function getClient() {
    if (!client) {
-      this.setClient();
+      this.initClient();
    }
 
    return client;
 }
 
 
-function setClient() {
+function initClient() {
    var supportedSchemes = new org.apache.http.conn.scheme.SchemeRegistry();
    var socketFactory = org.apache.http.conn.scheme.PlainSocketFactory.getSocketFactory();
    supportedSchemes.register(new org.apache.http.conn.scheme.Scheme('http', socketFactory, 80));
@@ -38,7 +38,7 @@ function setClient() {
    var clientConnMgr = new org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager(params, supportedSchemes);
 
    client = new org.apache.http.impl.client.DefaultHttpClient(clientConnMgr, params);
-   log.info('HTTP Client was set successfully.');
+   log.info('HTTP client initialized.');
 }
 
 
@@ -47,11 +47,11 @@ var HttpClient = rhino.extendJavaClass(org.apache.http.impl.client.DefaultHttpCl
 HttpClient.prototype.execReq = function (uri, method) {
    var request = new org.apache.http.client.methods.HttpGet(uri);
 
-   if (method == 'POST') {
+   if (method == 'POST' || method == 'post') {
       request = new org.apache.http.client.methods.HttpPost(uri);
-   } else if (method == 'PUT') {
+   } else if (method == 'PUT' || method == 'put') {
       request = new org.apache.http.client.methods.HttpPut(uri);
-   } else if (method == 'DELETE') {
+   } else if (method == 'DELETE' || method == 'delete') {
       request = new org.apache.http.client.methods.HttpDelete(uri);
    }
 
