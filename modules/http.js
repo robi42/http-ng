@@ -47,11 +47,11 @@ var HttpClient = rhino.extendJavaClass(org.apache.http.impl.client.DefaultHttpCl
 HttpClient.prototype.execReq = function (uri, method) {
    var request = new org.apache.http.client.methods.HttpGet(uri);
 
-   if (method == 'POST' || method == 'post') {
+   if (method.toUpperCase() == 'POST') {
       request = new org.apache.http.client.methods.HttpPost(uri);
-   } else if (method == 'PUT' || method == 'put') {
+   } else if (method.toUpperCase() == 'PUT') {
       request = new org.apache.http.client.methods.HttpPut(uri);
-   } else if (method == 'DELETE' || method == 'delete') {
+   } else if (method.toUpperCase() == 'DELETE') {
       request = new org.apache.http.client.methods.HttpDelete(uri);
    }
 
